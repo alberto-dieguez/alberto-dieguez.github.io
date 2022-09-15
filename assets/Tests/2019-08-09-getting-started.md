@@ -7,7 +7,7 @@ date: 2019-08-09 20:55:00 +0800
 categories: [Blogging, Tutorial]
 tags: [getting started]
 pin: true
-img: /assets/img/post/jekyll.png
+img: /assets/img/post/jekyll-themes/jekyll-logo.png
 ---
 
 ## Prerequisites
@@ -126,7 +126,7 @@ Now publish your Jekyll site by:
 
 2. Browse to your repository on GitHub. Select the tab _Settings_, then click _Pages_ in the left navigation bar, and then in the section **Source** of _GitHub Pages_, select the `/(root)` directory of branch `gh-pages` as the [publishing source][pages-src]. Remember to click <kbd>Save</kbd> before leaving.
 
-    ![gh-pages-sources](/posts/20190809/gh-pages-sources.png){: width="850" height="153" }
+    ![gh-pages-sources](/assets/img/post/jekyll-themes/jekyll-logo.png){: width="850" height="153" }
 
 3. Visit your website at the address indicated by GitHub.
 

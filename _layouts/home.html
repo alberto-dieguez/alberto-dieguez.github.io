@@ -87,7 +87,7 @@ layout: page
 <!-- Las imágenes mejor que sean 400px x  -->
     <div class="post-content">
       <p style="display:block;">
-	   <img src="{{ post.img }}" class="img_home"/>
+	   <img src="{{ post.img }}" class="img_home" alt="image"/>
         {% include no-linenos.html content=post.content %}
         {{ content | markdownify | strip_html | truncate: 350 | escape }}
       </p>

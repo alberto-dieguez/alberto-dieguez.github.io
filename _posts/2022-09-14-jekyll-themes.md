@@ -7,7 +7,7 @@ date: 2022-09-13 02:55:00 +0200
 categories: [Web, Tutorial]
 tags: [Jekyll]
 pin: false
-img: /assets/img/post/jekyll.png
+img: /assets/img/post/jekyll-themes/jekyll-logo.png
 toc: true
 ---
 
