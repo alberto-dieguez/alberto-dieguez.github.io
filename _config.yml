@@ -29,7 +29,7 @@ description: >-                        # used by seo meta and the atom feed
 url: ''
 
 github:
-  username:                             # change to your github username
+  username: alberto-dieguez                              # change to your github username
   
 gitlab:
   username: alberto-dieguez             # change to your github username

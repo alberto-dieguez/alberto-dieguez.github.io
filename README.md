@@ -1,6 +1,6 @@
 My web
 
-[Alberto Diéguez](https://alberto-dieguez.gitlab.io/)
+[Alberto Diéguez](https://alberto-dieguez.github.io/)
 
 <div align="right">
 

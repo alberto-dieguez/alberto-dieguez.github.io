@@ -10,7 +10,7 @@ layout:
 # The tabs of sidebar
 tabs:
   # format: <filename_without_extension>: <value>
-  home: Home
+  home: Blog
   categories: Categorías
   tags: Tags
   archives: Artículos
@@ -32,7 +32,7 @@ date_format:
   tooltip: '%a, %e de %b de %Y a las %X'
   post:
     long: '%a, %-d de %b de %Y'
-    short: '%a, %e de %b de %Y'
+    short: '%e de %b de %Y'
     archive_month: '%b'
 
 copyright:
@@ -61,7 +61,7 @@ not_found:
 post:
   written_by: Publicado por
   posted: el
-  updated: Actualizado
+  updated: Actualizado el
   timeago:
     day: días
     hour: horas
