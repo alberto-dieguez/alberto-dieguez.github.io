@@ -58,8 +58,8 @@
   padding-right: 0.5rem;
 
   .post-preview {
-    padding-top: 1.5rem;
-    padding-bottom: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 0.8rem;
     border-bottom: 1px solid var(--main-border-color);
 
     a:hover {
@@ -67,8 +67,8 @@
     }
 
     h1 {
-      font-size: 1.8rem;
-      margin: 0;
+      font-size: 1.4rem;
+      margin: 0 0 0.2rem;
     }
 
     .post-meta {
@@ -86,9 +86,10 @@
     }
 
     .post-content {
-      margin-top: 0.6rem;
-      margin-bottom: 0.6rem;
+      margin-top: 0.3rem;
+      margin-bottom: 0.4rem;
       color: var(--post-list-text-color);
+      font-size: 1rem;
 
       > p {
         /* Make preview shorter on the homepage */
@@ -96,7 +97,7 @@
         overflow: hidden;
         text-overflow: ellipsis;
         display: -webkit-box;
-        -webkit-line-clamp: 2;
+        -webkit-line-clamp: 4;
         -webkit-box-orient: vertical;
       }
     }

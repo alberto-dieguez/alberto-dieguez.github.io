@@ -41,7 +41,6 @@ h1 + .post-meta {
 }
 
 img.preview-img {
-  margin-top: 3.75rem;
   margin-bottom: 0;
   border-radius: 6px;
 
@@ -210,6 +209,7 @@ nav[data-toggle=toc] {
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
     -webkit-box-orient: vertical;
   }
 
@@ -337,7 +337,7 @@ nav[data-toggle=toc] {
 
 @media all and (max-width: 576px) {
   .preview-img[data-src] {
-    margin-top: 2.2rem;
+ 
   }
 
   .post-tail-bottom {

